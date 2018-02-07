@@ -10,6 +10,9 @@ data = {'a list': [1, 42, 3.141, 1337, 'help', u'€', True],
                          'the answer': 42},
         'David': x}
 
+a_dict = {'new_key': 'new_value'}
+data.update(a_dict)
+
 # Use JSON to write txt file======================================================
 # data = [1, 2, 3, 4, 5]
 with open('no.txt', 'w') as txtfile:
@@ -20,6 +23,7 @@ with open('no.txt') as txtfile:
 
 print(txt_loaded['a list'][6])
 print('David:',txt_loaded['David'])
+print(txt_loaded)
 
 # JSON=============================================================================
 # -*- coding: utf-8 -*-
