@@ -4,17 +4,17 @@ my_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 #          0, 1, 2, 3, 4, 5, 6, 7, 8, 9
 #        -10,-9,-8,-7,-6,-5,-4,-3,-2,-1
 
-print(my_list)
-print(my_list[0])
-print(my_list[:-1])
-print(my_list[0:8])
-print(my_list[2:])
-print(my_list[:])
-print(my_list[:6])
-print(my_list[2:-1:2])
-print(my_list[-1:2:-1])
-print(my_list[8:1:-1])
-print(my_list[::-1])
+print('my_list:', my_list)
+print('my_list[0]:', my_list[0])
+print('my_list[:-1]:', my_list[:-1])
+print('my_list[0:8]:', my_list[0:8])
+print('my_list[2:]:', my_list[2:])
+print('my_list[:]:', my_list[:])
+print('my_list[:6]:', my_list[:6])
+print('my_list[2:-1:2]:', my_list[2:-1:2])
+print('my_list[-1:2:-1]:', my_list[-1:2:-1])
+print('my_list[8:1:-1]:', my_list[8:1:-1])
+print('my_list[::-1]:', my_list[::-1])
 
 sample_url = 'http://coreyms.com'
 print(sample_url)
@@ -31,9 +31,11 @@ print(sample_url[7:]);
 #without both
 print(sample_url[7:-4]);
 
+# Appending
 x = [3,4,5,6,8,1,6,88,2,4,9,6,0,4,5]
 x.append(80)
-print(x)
+print('x after appended by 80:', x)
+print("Last x's element after appending:", x[len(x)-1])
 x.insert(2,99)
 print(x)
 x.remove(x[1]) #or remove(4)
