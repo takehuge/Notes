@@ -20,7 +20,7 @@ print('before update:', x_dict)
 x_dict.update({'c':3})
 print('after update:', x_dict)
 
-# plt.bar(range(len(H)), H.values(), align='center')
-# plt.xticks(range(len(H)), H.keys())
-# plt.show()
+plt.bar(range(len(H)), H.values(), align='center')
+plt.xticks(range(len(H)), H.keys())
+plt.show()
 
