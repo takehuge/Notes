@@ -1,1 +1,2 @@
-x.update(1000)
+@my_logger
+@my_timer

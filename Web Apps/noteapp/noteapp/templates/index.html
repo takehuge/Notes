@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block content %} 
+    <!--h2>This is the index</h2-->
+    <div class='notelist'>
+        {% for i in range(0,80) %}
+            <div class='note'>
+                <p>Example Notes</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

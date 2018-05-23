@@ -7,6 +7,19 @@
         href='{{ url_for("static", filename="css/style.css") }}'>
     </head>
     <body>
-
+        <nav class='navbar'>
+            <ul class='left'>
+                <li>
+                    <a href='#' class='name'>NoteApp</a>
+                </li>
+            </ul>
+            <ul class='right'>
+                <li>
+                    <a href='#'>+ New Note</a>
+                </li>
+            </ul>
+        </nav>
+        {% block content %}
+        {% endblock %}
     </body>
 </html>
