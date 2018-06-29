@@ -27,19 +27,19 @@ class Employee:
         return len(self.fullname())
     
 emp_1 = Employee('Corey', 'Schafer', 50000)
-emp_2 = Employee('Test', 'User', 80000)
+# emp_2 = Employee('Test', 'User', 80000)
 
 print(emp_1)
-print(1 + 2)
-print('a' + 'b')
-print(repr(emp_1))
-print(str(emp_1))
-print(emp_1.__repr__())
-print(emp_1.__str__())
+# print(1 + 2)
+# print('a' + 'b')
+# print(repr(emp_1))
+# print(str(emp_1))
+# print(emp_1.__repr__())
+# print(emp_1.__str__())
 
 print(int.__add__(1,2))
-print(emp_1 + emp_2)
+# print(emp_1 + emp_2)
 
-print(len(emp_1))
-print(len(emp_2))
+# print(len(emp_1))
+# print(len(emp_2))
 
