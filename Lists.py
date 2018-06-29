@@ -1,4 +1,5 @@
 import numpy as np
+from Searching import locate
 
 my_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 #          0, 1, 2, 3, 4, 5, 6, 7, 8, 9
@@ -32,7 +33,8 @@ print(sample_url[7:]);
 print(sample_url[7:-4]);
 
 # Appending
-x = [3,4,5,6,8,1,6,88,2,4,9,6,0,4,5]
+x = [3,4,5,6,8,1,6,88,2,4,9,6,0,4,5,6,7,8,5]
+print("location of 5 in x: ", locate(5, x))
 x.append(80)
 print('x after appended by 80:', x)
 print("Last x's element after appending:", x[len(x)-1])

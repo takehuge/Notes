@@ -8,7 +8,6 @@ saveFile.write(text)
 saveFile.close()
 
 # Appending Files
-
 appendMe = '\nNew bit of information'
 
 appendFile = open('exampleFile.txt','a')

@@ -24,7 +24,7 @@ print(txt_loaded['a list'][6])
 print('David:',txt_loaded['David'])
 print(txt_loaded)
 
-# JSON=============================================================================
+# Write JSON=============================================================================
 # -*- coding: utf-8 -*-
 
 # Write JSON file
@@ -43,8 +43,10 @@ print(data_loaded['a list'][2])
 
 # Write Binary file============================================================
 with open('data.bin', 'wb') as binfile:
+    # Convert dict to string first using ascii encoding
     datad = bytes(json.dumps(data), 'ascii')
     binfile.write(datad)
 print("Content: " + " ".join(map(bin, datad)))
 
+# Manipulating data type=======================================================
 
