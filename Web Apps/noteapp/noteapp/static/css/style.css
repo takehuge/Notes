@@ -58,3 +58,13 @@
     padding: 0.5rem;
     margin: 0.5rem;
 }
+.dataform {
+    width: 50%;
+    margin-top: 2.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dataform textarea {
+    width: 100%
+}

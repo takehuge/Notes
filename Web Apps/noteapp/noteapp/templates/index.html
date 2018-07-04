@@ -3,9 +3,9 @@
 {% block content %} 
     <!--h2>This is the index</h2-->
     <div class='notelist'>
-        {% for i in range(0,80) %}
+        {% for data in datas %}
             <div class='note'>
-                <p>Example Notes</p>
+                <p>{{ data }}</p>
             </div>
         {% endfor %}
     </div>

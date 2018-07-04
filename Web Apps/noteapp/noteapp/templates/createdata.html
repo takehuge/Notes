@@ -1,8 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block content %} 
-    <!--h2>This is the index</h2-->
-    <ul>
-        <h1>&nbsp CreateData</h1>
-    </ul>
+    <form method='POST' class='dataform'>
+        <label for='datatext'>
+            Input Parameter A:
+            <textarea name='datatext' id='datatext'></textarea>
+        </label>
+        <input type='submit' name='createdata' value='save'>
+    </form>
 {% endblock %}

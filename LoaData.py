@@ -1,5 +1,6 @@
 import json
 import io
+import struct
 
 # Assembling data
 x = [1, 2, 3, 4, 5, 6, 7, 8]
@@ -49,4 +50,23 @@ with open('data.bin', 'wb') as binfile:
 print("Content: " + " ".join(map(bin, datad)))
 
 # Manipulating data type=======================================================
+# dict to binary: (in string representation)
+datastring = json.dumps(data)
+databinary = ' '.join(format(ord(letter), 'b') for letter in datastring) #still a string displaying binary form
+print('data in binary: ', databinary)
+# binary to dict: (in string representation)
+jsn = ''.join(chr(int(x, 2)) for x in databinary.split())
+jsn = json.loads(jsn)  # <class 'dict'>
+print('put back as dict: ', jsn)
+
+# int to bytes:
+x = 35
+xbyte = x.to_bytes((x.bit_length() + 7) // 8, 'big') # byte length, byte order
+print("binary for {} is: ".format(x, 'I'), ' '.join(map(bin, xbyte)))
+y = x
+ybyte = struct.pack(">I", y)
+print("binary for %d is: " %(y), ' '.join(map(bin, ybyte)))
+# byte to int:
+bait = str(b'\x00\x10')
+print(bait, " is: ", int.from_bytes(b'\x00\x10', 'big'))
 
