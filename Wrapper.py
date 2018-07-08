@@ -10,26 +10,27 @@ class decorator_class(object):
         print('Call Method executed THIS before {}'.format(self.added_methodology.__name__))
         return self.added_methodology(*a, **b)
 
-
 #Wrapping function with NO arguments
 def decorator_func(added_functionality):
+    # return added_functionality()
     def wrapper_func():
-        print('wrapper executed THIS before {}'.format(added_functionality.__name__))
+        # print('wrapper executed THIS before {}'.format(added_functionality.__name__))
         return added_functionality()
     return wrapper_func
 
 @decorator_func
 def showing():
     print('SHOW TIME is ON')
+    return 1 + 1
 
 @decorator_class
 def showinG():
     print('SHOWING TIME is ON')
 
-print('\nFUNCTION DECORATOR:')
-showing()  # Basically it's equivalent to: showing = decorator_func(showing) "being WRAPPED or DECORATED"
-print('\nCLASS DECORATOR:')
-showinG()
+# print('\nFUNCTION DECORATOR:')
+# showing()  # Basically it's equivalent to: showing = decorator_func(showing) "being WRAPPED or DECORATED"
+# print('\nCLASS DECORATOR:')
+# showinG()
 
 #Wrapping function with arguments
 def decorator_func01(added_functionality):
@@ -43,15 +44,15 @@ def decorator_func01(added_functionality):
 def showing_info(name, age, year):
     print('{} is {} year-old human being on this earth in {}'.format(name, age, year))
 
-print('\nPASSING ARGUMENTS into WRAPPERS:')
-showing_info('John', 101, 2416)
+# print('\nPASSING ARGUMENTS into WRAPPERS:')
+# showing_info('John', 101, 2416)
 
 #Above is equivalent to:
 def showing_INFO(name, age, year):
     print('{} is {} year-old human being on this earth in {}'.format(name, age, year))
 
-print('\nwhich is equivalent to "function in function":')
-decorator_func01(showing_INFO)('John', 101, 2416) #Function in function!
+# print('\nwhich is equivalent to "function in function":')
+# decorator_func01(showing_INFO)('John', 101, 2416) #Function in function!
 
 #Add arguments into decorator:
 def decorator(arg1, arg2):    
@@ -67,8 +68,8 @@ def print_args(*args):
     for arg in args:
         print(arg)
 
-print('\nAdd arguments to Decorator:')
-print_args(1,2,3,4,5)
+# print('\nAdd arguments to Decorator:')
+# print_args(1,2,3,4,5)
 
 #Second argument in the form of list or dictionary
 def timetest(input_func):
@@ -79,7 +80,7 @@ def timetest(input_func):
         print("Method Name - {0}, Args - {1}, Kwargs - {2}, Execution Time - {3}".format(
             input_func.__name__,
             args,
-            kwargs,
+            kwargs, #['foo'],
             end_time - start_time
         ))
         return result
@@ -92,8 +93,8 @@ def foobar(*args, **kwargs):
     print(args, kwargs)
 
 
-print('\nArguments in the form of List & Dictionary:')
-foobar(["hello, world"], foo=2, bar=5)
+# print('\nArguments in the form of List & Dictionary:')
+# foobar(["hello, world"], foo=2, bar=5, cat=7)
 
 # Function Decorator with Arguments
 def decorators(arg1, arg2):
@@ -110,11 +111,11 @@ def print_argss(*args):
     for arg in args:
         print(arg)
 
-print('\nPreserve informations about the function being passed:')
-print(print_argss(1, 2, 3))
-# @wraps preserves information about the function which is being passed:
-print(print_argss.__name__)
-print(print_argss.__doc__)
+# print('\nPreserve informations about the function being passed:')
+# print(print_argss(1, 2, 3))
+# # @wraps preserves information about the function which is being passed:
+# print(print_argss.__name__)
+# print(print_argss.__doc__)
 
 # Useful Applications:
 def my_logger(orig_func):
@@ -147,13 +148,16 @@ def display_info(name, age):
     print('display_info ran with arguments ({}, {})'.format(name, age))
 
 
-print('\nMy LOGTIMER:')
-display_info('Tom', 22)
+# print('\nMy LOGTIMER:')
+# display_info('Tom', 22)
 #EQUIVALENTLY
 # display_info = my_logger(my_timer(display_info))
 # display_info('Adam', 35)
 
-print('\nEND\n')
+# print('\nEND\n')
+
+def two():
+    return (1+1)
 
 
 

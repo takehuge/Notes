@@ -5,7 +5,8 @@ bp = Blueprint(__name__, __name__, template_folder='templates')
 
 def fetch_data():
     complete_data = []
-    datas = glob.glob('noteapp/database/*.pyqum')
+    datas = glob.glob(
+        '/Users/apple/Dropbox/My Programming/Python/Notes/Web Apps/noteapp/noteapp/database/*.pyqum')
     for data in datas:
         with open(data) as dfile:
             complete_data.append(dfile.read())
