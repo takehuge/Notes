@@ -1,3 +1,4 @@
+import json
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
@@ -5,8 +6,10 @@ from werkzeug.exceptions import abort
 
 from flaskr.auth import login_required
 from flaskr.db import get_db
+from pathlib import Path
 
 bp = Blueprint('blog', __name__)
+datafolder = "/Users/apple/Dropbox/My Programming/Python/Notes/Web Apps/flask-master/examples/tutorial/instance"
 
 
 @bp.route('/')
@@ -117,3 +120,22 @@ def delete(id):
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('blog.index'))
+
+
+@bp.route('/experiments', methods=['POST', 'GET'])
+def experiments():
+    openpath = Path(datafolder) / "data.star"
+    if not openpath.exists():
+        txt_loaded = {}
+    else:
+        with open(openpath) as txt_file: # reading data
+            txt_loaded = json.load(txt_file)
+
+    if request.method == 'POST':
+        data = {'x': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                'y': [0, 2, 3, 5, 8, 12, 10, 13, 15, 17.9, 21, 25, 35]}
+        if request.form.get('measure'):
+            with open(openpath, 'w') as _file: # writing data
+                json.dump(data, _file)
+
+    return render_template('blog/experiments.html', dat=txt_loaded)

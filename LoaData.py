@@ -9,7 +9,10 @@ data = {'a list': [1, 42, 3.141, 1337, 'help', u'€', True],
                          'the answer': 42},
         'David': x}
 a_dict = {'new_key': 'new_value'}
+e_dict = {'x': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 
+          'y': [0, 2, 3, 5, 8, 12, 10, 13, 15, 17.9, 21, 25, 35]}
 data.update(a_dict)
+data.update(e_dict)
 
 i = 5 # index of dict of a list
 # Use json to write txt file======================================================

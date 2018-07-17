@@ -1,4 +1,4 @@
-{% extends 'layout.html' %} {% block content %}
+{% extends 'base.html' %} {% block content %}
 <html>
 
 <head>
@@ -6,11 +6,24 @@
 </head>
 
 <body>
+    <h1>{{ dat }}</h1>
+    <p id="output"></p>
+
+    <form method='POST' class='dataform'>
+        <input class="button buttonmeasure" type='submit' name='measure' value='MEASURE'>
+    </form>
+    
     <div style="width:75%;">
         <canvas id="canvas" style="display: block; width: 1000px; height: 500px;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
     </div>
 
     <script>
+        var datax = [{{dat['x']}}];
+        var datay = [{{dat['y']}}];
+        var data = [{% for item in datax %}
+            {{ item }},
+            {% endfor %}];
+        document.getElementById("output").innerHTML = datay[1];
         var ctx = document.getElementById('canvas').getContext('2d');
         var chart = new Chart(ctx, {
             // The type of chart we want to create
@@ -18,19 +31,23 @@
 
             // The data for our dataset
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
                 datasets: [{
                     fill: false,
                     label: "CN",
                     backgroundColor: 'rgb(255, 99, 132)',
                     borderColor: 'rgb(255, 99, 132)',
-                    data: [0, 10, 5, 2, 20, 30, 45]
+                    data: [{% for item in datax %}
+                            {{item}},
+                            {% endfor %}]       
+
+
                 }, {
                     fill: false,
                     label: "US",
                     backgroundColor: 'rgb(25, 120, 101)',
                     borderColor: 'rgb(25, 120, 101)',
-                    data: [0, 7, 3, 2, 17, 37, 42]
+                    data: [0, 7, 3, 2, 17, 37, 42, 23, 14, 12, 25, 35, 13]
                 }]
             },
 
