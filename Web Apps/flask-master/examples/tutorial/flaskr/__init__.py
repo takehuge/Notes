@@ -2,6 +2,15 @@ import os
 
 from flask import Flask
 
+# For Streaming
+def stream_template(template_name, **context):
+    app = Flask(__name__, instance_relative_config=True)
+    app.update_template_context(context)
+    t = app.jinja_env.get_template(template_name)
+    rv = t.stream(context)
+    # rv.enable_buffering(2)
+    return rv
+
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""

@@ -1,0 +1,44 @@
+{% extends 'base.html' %} {% block content %}
+<html>
+    
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
+        <script>
+        $(document).ready(function(){
+            $("p").click(function(){
+                $(this).hide();
+            });
+        });
+        </script>
+    </head>
+ 
+    <body>
+        
+        <p>nothing received yet</p>
+        <p>If you click on me, I will disappear.</p>
+        <p>Click me away!</p>
+        <p>Click me too!</p>
+        
+<!--
+        <form method='POST' class='dataform'>
+            <input class="button buttonmeasure" type='submit' name='analysis' value='ANALYSIS'>
+            <input class="button buttonmeasure" type='submit' name='stop' value='STOP'>
+        </form>
+-->
+        {% for item in data %}
+            <h3>{{ item }}</h3>
+        {% endfor %}
+<!--
+        <h5 id="output"></h5>
+    
+        <div style="width:75%;">
+            <canvas id="canvas" style="display: block; width: 1000px; height: 500px;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
+        </div>
+-->
+        
+    </body>
+    
+</html>
+{% endblock %}

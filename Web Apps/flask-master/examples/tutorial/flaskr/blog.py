@@ -1,12 +1,17 @@
-import json
+import json, time, random, itertools
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Flask, Blueprint, flash, g, redirect, render_template, request, url_for, Response,
+    stream_with_context
 )
 from werkzeug.exceptions import abort
 
+from flaskr import stream_template
 from flaskr.auth import login_required
 from flaskr.db import get_db
 from pathlib import Path
+import numpy as np
+
+app = Flask(__name__)
 
 bp = Blueprint('blog', __name__)
 datafolder = "/Users/apple/Dropbox/My Programming/Python/Notes/Web Apps/flask-master/examples/tutorial/instance"
@@ -122,8 +127,9 @@ def delete(id):
     return redirect(url_for('blog.index'))
 
 
-@bp.route('/experiments', methods=['POST', 'GET'])
-def experiments():
+@bp.route('/experimentss', methods=['POST', 'GET']) #how it appears in the address bar
+def experimen():
+    tojsondata = [0, 10, 5, 2, 20, 30, 64]
     openpath = Path(datafolder) / "data.star"
     if not openpath.exists():
         txt_loaded = {}
@@ -132,10 +138,48 @@ def experiments():
             txt_loaded = json.load(txt_file)
 
     if request.method == 'POST':
-        data = {'x': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-                'y': [0, 2, 3, 5, 8, 12, 10, 13, 15, 17.9, 21, 25, 35]}
+        
         if request.form.get('measure'):
+            data = {}
+            x = np.arange(0,12,0.5)
+            data['x'] = [x for x in x]
+            y = np.random.rand(len(data['x']))
+            data['y1'] = [y for y in y]
+            y = np.random.rand(len(data['x']))
+            data['y2'] = [y for y in y]
             with open(openpath, 'w') as _file: # writing data
                 json.dump(data, _file)
 
-    return render_template('blog/experiments.html', dat=txt_loaded)
+    return render_template('blog/experiments.html', dat=txt_loaded, tojsondata=tojsondata)
+
+# Streaming
+
+@bp.route('/analysis', methods=['POST', 'GET'])
+def analysis(): # one of the method called by base/layout
+    data = {}
+    x = np.arange(0, 12, 0.5)
+    data['x'] = [x for x in x]
+    y = np.random.rand(len(data['x']))
+    data['y'] = [y for y in y]
+
+    # if request.method == 'POST':
+        
+    #     if request.form.get('analysis'):
+    #         for i in range(5):
+    #             y[1:len(y)] = y[0:len(y)-1]
+    #             y[0] = random.uniform(0, 1)
+    #             data['y'] = [y for y in y]
+    #             time.sleep(0.7)
+
+    data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    def gen():                                                                                                                                                                                
+        for item in data:                                                                                                                                                                          
+            yield str(item)                                                                                                                                                                        
+            time.sleep(0.37) 
+
+    rows = gen()
+    
+    # return redirect('/analysis')
+    # return Response(gen())
+    return Response(stream_with_context(stream_template('blog/analysis.html', data=rows)))
+    # return render_template('blog/analysis.html', data=data) #link to literal html file
