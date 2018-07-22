@@ -1,7 +1,7 @@
-function myPlot(datax, datay) {
+function myPlot(canvas, datax, datay) {
     
-    document.getElementById("output").innerHTML = "Y1-Data: " + datay[0];
-    var ctx = document.getElementById('canvas').getContext('2d');
+//    document.getElementById(output).innerHTML = "Y1-Data: " + datay.slice(0,6);
+    var ctx = document.getElementById(canvas).getContext('2d');
     var chart = new Chart(ctx, {
         // The type of chart we want to create
         type: 'line',
@@ -21,6 +21,6 @@ function myPlot(datax, datay) {
         },
 
         // Configuration options go here
-        options: {}
+        options: {animation: false}
     });
 }

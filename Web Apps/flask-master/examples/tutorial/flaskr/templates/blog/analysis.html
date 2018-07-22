@@ -16,27 +16,39 @@
  
     <body>
         
-        <p>nothing received yet</p>
         <p>If you click on me, I will disappear.</p>
         <p>Click me away!</p>
         <p>Click me too!</p>
         
-<!--
         <form method='POST' class='dataform'>
             <input class="button buttonmeasure" type='submit' name='analysis' value='ANALYSIS'>
-            <input class="button buttonmeasure" type='submit' name='stop' value='STOP'>
+            <input class="button buttonmeasure" type='submit' value='RESET'>
         </form>
--->
-        {% for item in data %}
+        
+<!--
+        {% for item in datanum %}
             <h3>{{ item }}</h3>
         {% endfor %}
-<!--
-        <h5 id="output"></h5>
+-->
+        <div style="width:75%;">
+            <h5 id="counter"></h5>
+            <canvas id="canvas01" style="display: block; width: 1000px; height: 500px;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
+            {% for item in data %}
+                <script>
+                    document.getElementById("counter").innerHTML = "COUNT: " + {{item[0] + 1}}
+                    myPlot("canvas01", {{item[1]['x']}}, {{item[1]['y']}})
+                </script>   
+            {% endfor %}    
+        </div>
+        
     
         <div style="width:75%;">
             <canvas id="canvas" style="display: block; width: 1000px; height: 500px;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
         </div>
--->
+        
+        <script>
+            myPlot("canvas", {{datas['x']}}, {{datas['y']}})
+        </script>
         
     </body>
     

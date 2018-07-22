@@ -8,7 +8,7 @@
 </head>
 
     
-<body onload="myInit({{dat['x']}}, {{dat['y1']}}, {{dat['y2']}}, {{tojsondata | tojson}})">
+<body onload="myInit({{dat['x']}}, {{dat['y1']}}, {{dat['y2']}}, {{tojsondata}})">
 
     <form>
         <select id="mySelect" onchange="myFruits(this.id, this.value)">
@@ -37,7 +37,14 @@
 
     <!-- add lines with br -->
     <br> <br>
-
+    
+    <h5 id="array01"></h5>
+    <h5 id="array02"></h5>
+    <script>
+        document.getElementById("array01").innerHTML = 'w/o tojson Array: ' + {{tojsondata}};
+        document.getElementById("array02").innerHTML = 'w/ tojson Array: ' + {{tojsondata | tojson}};
+    </script>
+    
     <div style="width:75%">
         <canvas id="canvas01" style="display: block; width: 1000px; height: 500px;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
     </div>

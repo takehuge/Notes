@@ -150,36 +150,62 @@ def experimen():
             with open(openpath, 'w') as _file: # writing data
                 json.dump(data, _file)
 
+    # RENDER to literal HTML file:
     return render_template('blog/experiments.html', dat=txt_loaded, tojsondata=tojsondata)
 
 # Streaming
 
 @bp.route('/analysis', methods=['POST', 'GET'])
 def analysis(): # one of the method called by base/layout
+    datagen = {}
     data = {}
     x = np.arange(0, 12, 0.5)
     data['x'] = [x for x in x]
     y = np.random.rand(len(data['x']))
     data['y'] = [y for y in y]
 
-    # if request.method == 'POST':
+    if request.method == 'POST':
         
-    #     if request.form.get('analysis'):
-    #         for i in range(5):
-    #             y[1:len(y)] = y[0:len(y)-1]
-    #             y[0] = random.uniform(0, 1)
-    #             data['y'] = [y for y in y]
-    #             time.sleep(0.7)
+        if request.form.get('analysis'):
+            def gen(): 
+                for i in range(300):
+                    y[1:len(y)] = y[0:len(y)-1]
+                    y[0] = random.uniform(0, 1)
+                    data['y'] = [y for y in y]
+                    yield i, data
+                    time.sleep(0.03)
 
-    data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    def gen():                                                                                                                                                                                
-        for item in data:                                                                                                                                                                          
-            yield str(item)                                                                                                                                                                        
-            time.sleep(0.37) 
+            datagen = gen()
 
-    rows = gen()
-    
-    # return redirect('/analysis')
-    # return Response(gen())
-    return Response(stream_with_context(stream_template('blog/analysis.html', data=rows)))
-    # return render_template('blog/analysis.html', data=data) #link to literal html file
+    # return Response(gen()) #Blank page with just data print
+    # return Response(stream_with_context(gen())) #SAME AS ABOVE
+    # return Response(stream_template('blog/analysis.html', data=rows)) #BLANK!!! WHY???
+    return Response(stream_with_context(stream_template('blog/analysis.html', data=datagen)))
+    # return render_template('blog/analysis.html', data=data) #NORMAL Display, No streaming!
+
+@bp.route('/calibration', methods=['POST', 'GET'])
+def calibration():  # one of the method called by base/layout
+    datagen = {}
+    data = {}
+    x = np.arange(0, 12, 0.1)
+    data['x'] = [x for x in x]
+    y = np.sin(x)
+    data['y'] = [y for y in y]
+    y = np.random.rand(len(data['x']))
+    data['y'] = [y for y in y]
+
+    if request.method == 'POST':
+        
+        if request.form.get('calibration'):
+
+            def gen(): 
+                for i in range(300):
+                    y = np.sin(x+i/7) ** 2
+                    data['y'] = [y for y in y]
+                    yield i, data
+                    time.sleep(0.03)
+
+            datagen = gen()
+
+    return Response(stream_with_context(stream_template('blog/calibration.html', data=datagen)))
+    # return render_template('blog/analysis.html', data=data) #NORMAL Display, No streaming!
