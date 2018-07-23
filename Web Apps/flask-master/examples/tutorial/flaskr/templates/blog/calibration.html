@@ -1,5 +1,45 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
+<html>
+    <head>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/calib.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
+    </head>
+    
+    <body>
+        
+        <h5>Chart Option:</h5>
+        <form method='POST' name="chartopt">
+            <select id="chartopt" name="chartopt">
+                <option value="random">Random</option>
+                <option value="sinusoid">Sinusoid</option>
+                <option value="random2">Random#2</option>
+            </select>
+            <button type="submit">Compare!</button>
+        </form>
+        
+        <h5>{{chartopt}}</h5>
+        <p id="out"></p>
+        <div style="width:75%;">
+            <canvas id="canvas01" style="display: block; width: 1000px; height: 500px;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
+        </div>
+        {% for item in data %}
+            <script>
+//                document.getElementById("out").innerHTML = {{item[0]}};
+                myPlot("canvas01", {{item[0]}}, {{item[1]}});
+            </script>
+        {% endfor %}
 
-{% block content %}
-
+        
+<!-- NOT WORKING IF ITERATED TWICE!
+        {% for item in data %}
+            <script>
+                myPlot("canvas01", {{item[0]}}, {{item[1]}});
+            </script>   
+        {% endfor %}    
+-->
+        
+        
+    </body>
+    
+</html>
 {% endblock %}

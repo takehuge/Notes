@@ -11,7 +11,7 @@ from flaskr.db import get_db
 from pathlib import Path
 import numpy as np
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 bp = Blueprint('blog', __name__)
 datafolder = "/Users/apple/Dropbox/My Programming/Python/Notes/Web Apps/flask-master/examples/tutorial/instance"
@@ -126,6 +126,12 @@ def delete(id):
     db.commit()
     return redirect(url_for('blog.index'))
 
+# Setting shared variables
+x = np.arange(0, 12, 0.1)
+lx = len(x)
+yr = np.random.rand(lx) - np.random.rand(lx)
+yr2 = np.random.rand(lx) - np.random.rand(lx)
+ys = np.sin(x)
 
 @bp.route('/experimentss', methods=['POST', 'GET']) #how it appears in the address bar
 def experimen():
@@ -141,12 +147,9 @@ def experimen():
         
         if request.form.get('measure'):
             data = {}
-            x = np.arange(0,12,0.5)
             data['x'] = [x for x in x]
-            y = np.random.rand(len(data['x']))
-            data['y1'] = [y for y in y]
-            y = np.random.rand(len(data['x']))
-            data['y2'] = [y for y in y]
+            data['y1'] = [y for y in abs(yr) - np.random.rand(lx)]
+            data['y2'] = [y for y in abs(yr2) - np.random.rand(lx)]
             with open(openpath, 'w') as _file: # writing data
                 json.dump(data, _file)
 
@@ -157,23 +160,21 @@ def experimen():
 
 @bp.route('/analysis', methods=['POST', 'GET'])
 def analysis(): # one of the method called by base/layout
-    datagen = {}
-    data = {}
-    x = np.arange(0, 12, 0.5)
+    datagen, data = {}, {}
     data['x'] = [x for x in x]
-    y = np.random.rand(len(data['x']))
-    data['y'] = [y for y in y]
+    data['y'] = [y for y in yr]
 
     if request.method == 'POST':
         
         if request.form.get('analysis'):
             def gen(): 
-                for i in range(300):
-                    y[1:len(y)] = y[0:len(y)-1]
-                    y[0] = random.uniform(0, 1)
-                    data['y'] = [y for y in y]
+                i = 1
+                while True:
+                    data['y'][1:lx] = data['y'][0:lx - 1]
+                    data['y'][0] = random.uniform(-1, 1)
                     yield i, data
                     time.sleep(0.03)
+                    i += 1
 
             datagen = gen()
 
@@ -185,27 +186,30 @@ def analysis(): # one of the method called by base/layout
 
 @bp.route('/calibration', methods=['POST', 'GET'])
 def calibration():  # one of the method called by base/layout
-    datagen = {}
-    data = {}
-    x = np.arange(0, 12, 0.1)
+    datagen, data, chartopt = {}, {}, ""
     data['x'] = [x for x in x]
-    y = np.sin(x)
-    data['y'] = [y for y in y]
-    y = np.random.rand(len(data['x']))
-    data['y'] = [y for y in y]
+    data['yI'] = [y for y in ys]
+    data['yQ'] = [y for y in yr]
+    data['yQ2'] = [y for y in yr2]
+    data['xdisp'] = []
+    data['ydisp'] = []
 
     if request.method == 'POST':
         
-        if request.form.get('calibration'):
+        chartopt = request.form.get("chartopt")
+        def gen():
+            for i in range(lx):
+                data['xdisp'].append(data['x'][i])
+                if str(chartopt) == "sinusoid":
+                    data['ydisp'].append(data['yI'][i])
+                if str(chartopt) == "random":
+                    data['ydisp'].append(data['yQ'][i])
+                if str(chartopt) == "random2":
+                    data['ydisp'].append(data['yQ2'][i])
+                yield [data['xdisp'], data['ydisp']]
+                time.sleep(0.03)
 
-            def gen(): 
-                for i in range(300):
-                    y = np.sin(x+i/7) ** 2
-                    data['y'] = [y for y in y]
-                    yield i, data
-                    time.sleep(0.03)
+        datagen = gen()
 
-            datagen = gen()
-
-    return Response(stream_with_context(stream_template('blog/calibration.html', data=datagen)))
+    return Response(stream_with_context(stream_template('blog/calibration.html', data=datagen, chartopt=str(chartopt))))
     # return render_template('blog/analysis.html', data=data) #NORMAL Display, No streaming!
