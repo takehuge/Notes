@@ -28,7 +28,6 @@ function myChart01(datax, datay1, datay2) {
                 borderColor: 'rgb(255, 99, 132)',
                 data: datay1      
 
-
             }, {
                 fill: false,
                 label: "US",

@@ -10,6 +10,21 @@ body {
   background: white;
 }
 
+nav a.current {
+  background: darkblue;
+  color:white;
+}
+
+.home a.home, .exp a.exp, .analysis a.analysis, .calib a.calib, .scatter a.scatter {
+  background: darkblue;
+  color:white;
+}
+
+.reg a.reg {
+    font-weight: 1000;
+    color: darkred;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: serif;
   color: #377ba8;
@@ -47,6 +62,10 @@ nav ul  {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+nav ul li a:hover {
+    background-color: chartreuse
 }
 
 nav ul li a, nav ul li span, header .action {

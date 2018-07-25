@@ -131,7 +131,8 @@ x = np.arange(0, 12, 0.1)
 lx = len(x)
 yr = np.random.rand(lx) - np.random.rand(lx)
 yr2 = np.random.rand(lx) - np.random.rand(lx)
-ys = np.sin(x)
+ys = np.sin(3*x)
+yc = np.cos(3 * x)
 
 @bp.route('/experimentss', methods=['POST', 'GET']) #how it appears in the address bar
 def experimen():
@@ -186,30 +187,54 @@ def analysis(): # one of the method called by base/layout
 
 @bp.route('/calibration', methods=['POST', 'GET'])
 def calibration():  # one of the method called by base/layout
-    datagen, data, chartopt = {}, {}, ""
+    datad, data, chartop, chartopt = {}, {}, "", ""
     data['x'] = [x for x in x]
-    data['yI'] = [y for y in ys]
-    data['yQ'] = [y for y in yr]
-    data['yQ2'] = [y for y in yr2]
-    data['xdisp'] = []
-    data['ydisp'] = []
-
-    if request.method == 'POST':
-        
-        chartopt = request.form.get("chartopt")
+    data['yS'] = [y for y in ys]
+    data['yR'] = [y for y in yr]
+    data['yC'] = [y for y in yc]
+    data['xud'], data['yup'], data['ydn'] = [], [], []
+    # chartopt = request.form.get("chartopt")
+    if 'run' in request.form:
+        chartopt = request.form.get("chartopt") # selection picked for chart#1
+        chartop = request.form.get("chartop") # selection picked for chart#2
         def gen():
             for i in range(lx):
-                data['xdisp'].append(data['x'][i])
+                data['xud'].append(data['x'][i])
+                    
                 if str(chartopt) == "sinusoid":
-                    data['ydisp'].append(data['yI'][i])
+                    data['yup'].append(data['yS'][i])
                 if str(chartopt) == "random":
-                    data['ydisp'].append(data['yQ'][i])
-                if str(chartopt) == "random2":
-                    data['ydisp'].append(data['yQ2'][i])
-                yield [data['xdisp'], data['ydisp']]
+                    data['yup'].append(data['yR'][i])
+                if str(chartopt) == "cosine":
+                    data['yup'].append(data['yC'][i])       
+                
+                if str(chartop) == "0":
+                    data['ydn'].append(data['yS'][i])
+                if str(chartop) == "1":
+                    data['ydn'].append(data['yR'][i])
+                if str(chartop) == "2":
+                    data['ydn'].append(data['yC'][i])
+
+                yield [data['xud'], data['yup'], data['ydn']]
                 time.sleep(0.03)
+        datad = gen()
 
-        datagen = gen()
-
-    return Response(stream_with_context(stream_template('blog/calibration.html', data=datagen, chartopt=str(chartopt))))
+    return Response(stream_with_context(stream_template('blog/calibration.html', datad=datad, chartopt=str(chartopt), chartop=str(chartop))))
     # return render_template('blog/analysis.html', data=data) #NORMAL Display, No streaming!
+
+@bp.route('/scatter', methods=['POST', 'GET'])
+def scatter():
+    datad = []
+    def gen():
+        # datad = [] # only if += is used
+        for i in range(371):
+            a = np.sin(i * np.pi / 25 + 0.25 * np.pi) + 0.07 * random.uniform(-1, 1)
+            b = np.cos(i * np.pi / 25 + 0.25 * np.pi) + 0.13 * random.uniform(-1, 1)
+            book = dict(x=a, y=b)
+            datad.append(book)
+            # datad += [book] # equivalent to append but need to declare it inside def
+            yield i, datad
+            time.sleep(0.0001)
+    data = gen()
+      
+    return Response(stream_with_context(stream_template('blog/scatter.html', data=data)))

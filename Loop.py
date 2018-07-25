@@ -1,4 +1,5 @@
-import math
+import math, random, time, types
+import numpy as np
 
 condition = 1 
 while condition < 10:
@@ -74,7 +75,7 @@ def Survey():
     else:
         print('That\'s not an option!')
 
-Survey()
+# Survey()
 
 #%% try break except (use dictionary)
 def SurveyCalibration():
@@ -99,7 +100,7 @@ def SurveyCalibration():
 
     return options[option_id]()
 
-SurveyCalibration()
+# SurveyCalibration()
 
 #%% try raise except
 def survey():
@@ -126,16 +127,113 @@ def survey():
         print('Awesome!')
     return None
 
-survey()
+# survey()
+
+datad = []
+book = dict()
+a, b = 0, 0 # Global value can't seem to pass into method's inside loop if undeclared explicitly
+def gen():
+    global a, b # comment this out if below (local var) is used instead
+    # a, b = 0, 0
+    for i in range(8):
+        # book = dict() # append/insert/extend/: seem to make datad and book the same object, ergo need to be clear every round
+        a += 1 #= random.uniform(-1, 1)
+        b += 1 #= random.uniform(-1, 1)
+        book['x'], book['y'] = a, b # w/o clearing every round, the book will duplicate itself (why?)
+        # book = dict(x=a, y=b)
+        print("before: datad: ", datad)
+        datad[len(datad):] = [book]
+        # datad.extend([book])
+        # datad.insert(len(datad),book)
+        # datad.append(book) #append/insert/extend/: need to have the dict clear every round
+        # print("book: ", book)
+        # print("datad[i]: ", datad[i])
+        print("after: datad: ", datad)
+    return i, datad
+    
+# gen()
+ge = gen()
+# print(gen())
+print('datad:', datad)
+
+#Local vs Global Variables
+def f():
+    global s # all s defined inside will be GLOBAL
+    print(s)
+    s = "That's clear." # This will be made global as well
+    print(s)
+
+s = "Python is great!"
+f()
+print(s)
+s = "WHAT?!"
+print(s)
 
 
+def g():
+    global a
+    for i in range(5):
+        # print(id(a))
+        a += 2
+        # print(id(a))
+        print(i, a) # print is yield in display
+        # yield / return as a conclusion of a method / function
+        yield i, a # yield is print to value on the fly
+        time.sleep(0.17)
+    return i, a
 
+a = 0 
+print("\nRunning g():")
+g()  # If yield preceding return, g() will be holding until being push
+print("\nEven assigning value, it is still running:")
+G = g() # comment yield out and this will be flowing
+print("\n", type(G))
+print("\nPushing value out using __next__():")
+if type(G) == types.GeneratorType:
+    print("\nGenerator is spitting one by one:")
+    for i in range(5):
+        print(G.__next__())
+else: print("\nNo pushing-on-fly for RETURN, only spitting out TUPLE data")
 
+print('\nUsing : as a copy to protect original var')
+def func2(list):
+    print(list)
+    list += [47,11]
+    print(list)
 
+fib = [0, 1, 1, 2, 3, 5, 8]
+print("Original fib:", fib)
+func2(fib[:]) # using : to slice a copy
+print("INTACT fib:", fib)
+func2(fib)
+print("MODIFIED fib:", fib)
 
+print("\nAnother example:")
+colours = ["red"]
+for i in colours:
+    if i == "red":
+        colours += ["black"]
+    if i == "black":
+        colours += ["white"]
+print("\nNo Slicing: ", colours)
 
+colours = ["red"]
+for i in colours[:]:
+    if i == "red":
+        colours += ["black"]
+    if i == "black":
+        colours += ["white"]
+print("\nINTACT: ", colours)
 
+print("\nThis is to illustrate LOCAL precedes GLOBAL VAR:")
+def fu():
+    global s # This solves the problem
+    print(s)
+    s = "Me too." # +=, loop, assignment etc will change the var identity to LOCAL
+    print(s)
 
-
-
+s = "I hate spam." 
+fu()
+print(s)
+    
 
