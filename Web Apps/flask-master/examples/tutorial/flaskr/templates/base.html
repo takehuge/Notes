@@ -2,37 +2,28 @@
 
 <title>{% block title %}{% endblock %} - Flaskr</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-<nav>
-    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-<!--
-    <script>
-    $(function(){
-      $('a').each(function() {
-        if ($(this).prop('href') == window.location.href) {
-          $(this).addClass('current');
-        }
-      });
-    });
-    </script>
--->
-    <h1><a href="{{ url_for('index') }}" class="home">Flaskr</a></h1>
-    <h1><a href="{{ url_for('blog.experimen') }}" class="exp">Experiments</a></h1>
-    <h1><a href="{{ url_for('blog.analysis') }}" class="analysis">Analysis</a></h1>
-    <h1><a href="{{ url_for('blog.calibration') }}" class="calib">Calibration</a></h1>
-    <h1><a href="{{ url_for('blog.scatter') }}" class="scatter">Scatter</a></h1>
+<nav class="navbar">
+    
     <ul>
-        {% if g.user %}
-        <li><span>{{ g.user['username'] }}</span>
-            <li><a href="{{ url_for('auth.logout') }}">Log Out</a> {% else %}
-                <li><a href="{{ url_for('auth.register') }}" class="reg">Register</a>
-                    <li><a href="{{ url_for('auth.login') }}">Log In</a> {% endif %}
+    <li class="left"><a href="{{ url_for('index') }}" class="home">Flaskr</a></li>
+    <li class="left"><a href="{{ url_for('blog.experimen') }}" class="exp">Experiments</a></li>
+    <li class="left"><a href="{{ url_for('blog.analysis') }}" class="analysis">Analysis</a></li>
+    <li class="left"><a href="{{ url_for('blog.calibration') }}" class="calib">Calibration</a></li>
+    <li class="left"><a href="{{ url_for('blog.scatter') }}" class="scatter">Scatter</a></li>
+    
+    {% if g.user %}
+    <li class="right"><span>{{ g.user['username'] }}</span></li>
+    <li class="right"><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+    {% else %}
+    <li class="right"><a href="{{ url_for('auth.register') }}" class="reg">Register</a></li>
+    <li class="right"><a href="{{ url_for('auth.login') }}">Log In</a></li> 
+    {% endif %}
+    
     </ul>
 </nav>
 <section class="content">
     <header>
-        {% block header %}{% endblock %}
+    {% block header %}{% endblock %}
     </header>
-    {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-    {% endfor %} {% block content %}{% endblock %}
+    {% block content %}{% endblock %}
 </section>

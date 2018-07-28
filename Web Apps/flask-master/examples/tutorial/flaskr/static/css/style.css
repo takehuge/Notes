@@ -1,19 +1,52 @@
 html {
   font-family: sans-serif;
   background: #eee;
-  padding: 1rem;
+/*  padding: 1rem;*/
 }
 
 body {
-  max-width: 960px;
+  max-width: 1200;
   margin: 0 auto;
   background: white;
 }
 
-nav a.current {
-  background: darkblue;
-  color:white;
+
+.left {
+    float: left;
 }
+
+.right {
+    float: right;
+}
+
+/*
+.navbar {
+    width: 100%;
+    height: fit-content;
+    background-color: #333333;
+}
+*/
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+
+.navbar ul li a, .navbar ul li span {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+
 
 .home a.home, .exp a.exp, .analysis a.analysis, .calib a.calib, .scatter a.scatter {
   background: darkblue;
@@ -88,12 +121,7 @@ nav ul li a, nav ul li span, header .action {
   margin: 1rem 0 0.25rem 0;
 }
 
-.flash {
-  margin: 1em 0;
-  padding: 1em;
-  background: #cae6f6;
-  border: 1px solid #377ba8;
-}
+
 
 .post > header {
   display: flex;
