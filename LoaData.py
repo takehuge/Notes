@@ -74,6 +74,7 @@ print('data.bin: ', os.path.getsize('data.bin'), 'bytes (identical to txt)\n')
 
 # Manipulating data type=======================================================
 # mapping binary content of previous "datastring":
+print(datastring)
 print("Binary Content of data:\n" + " ".join(map(bin, datastring)), '\n')
 # dict to binary: (in string representation)
 datastring = json.dumps(data)

@@ -1,2 +1,2 @@
-for i in range(5):
-    print(G.__next__())
+with open('data.star') as txt_file:
+    txt_loaded = json.load(txt_file)
