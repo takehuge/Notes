@@ -58,5 +58,18 @@ def example02():
 # a+=12
 # print(a)
 
+def fourplay(x):
+    r = x - 3
+    s = x * 3
+    t = x + 3
+    u = x / 3
+    z = 'super' + str(s)
+    return r, s, t, u, z
 
+
+r, s, t, u, z = fourplay(35)
+print("r:", r)
+print("s:", s)
+print("t:", t)
+print("u:", u)
 

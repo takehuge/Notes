@@ -1,2 +1,3 @@
-with open('data.star') as txt_file:
-    txt_loaded = json.load(txt_file)
+e True:
+#     charac = input("Enter a CHARACTER:")
+#     print("The correspond
