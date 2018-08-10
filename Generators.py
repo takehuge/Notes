@@ -1,4 +1,6 @@
 import time
+from pylab import linspace
+from numpy import sin, cos, pi
 
 def city_generator():
     yield("Konstanz")
@@ -46,8 +48,34 @@ def permutations(items):
                 yield [items[i]] + cc
 
 for p in permutations(['r', 'e', 'd']):
-    time.sleep(0.7)
+    time.sleep(0.0)
     print(''.join(p))
 for p in permutations(list("game")):
-    time.sleep(0.7)
+    time.sleep(0.0)
     print(''.join(p))
+
+def stepcalc(x, y ,z):
+    yield x
+    inp = 0
+    while inp == 0:
+        yield y
+        inp = int(input("0/1?"))
+    yield z
+    
+
+step = stepcalc(0, 1, 2) # make it an object first!
+a = next(step)
+print("a:", a)
+print("a:", a)
+print(next(step))
+print(next(step))
+print(next(step))
+print(next(step))
+step = stepcalc(10, 20 ,30) # RESET
+print(next(step))
+print(next(step))
+print(next(step))
+print(next(step))
+print(next(step))
+print(next(step))
+

@@ -11,6 +11,7 @@
     <li class="left"><a href="{{ url_for('blog.calibration') }}" class="calib">Calibration</a></li>
     <li class="left"><a href="{{ url_for('blog.scatter') }}" class="scatter">Scatter</a></li>
     
+
     {% if g.user %}
     <li class="right"><span>{{ g.user['username'] }}</span></li>
     <li class="right"><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
@@ -21,6 +22,7 @@
     
     </ul>
 </nav>
+
 <section class="content">
     <header>
     {% block header %}{% endblock %}
