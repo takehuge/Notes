@@ -1,5 +1,8 @@
+# import matplotlib
+# matplotlib.use('tkAgg') # bring upfront # TO AVOID: RuntimeError: Python is not installed as a framework.
+
 import time
-from pylab import linspace
+# from pylab import linspace
 from numpy import sin, cos, pi
 
 def city_generator():

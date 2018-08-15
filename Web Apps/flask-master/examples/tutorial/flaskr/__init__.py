@@ -1,15 +1,6 @@
 import os
-
 from flask import Flask
-
-# For Streaming
-def stream_template(template_name, **context):
-    app = Flask(__name__, instance_relative_config=True)
-    app.update_template_context(context)
-    t = app.jinja_env.get_template(template_name)
-    rv = t.stream(context)
-    # rv.enable_buffering(2)
-    return rv
+# from jinja2 import Environment, FileSystemLoader
 
 # equivalent to app.py
 def create_app(test_config=None):
@@ -44,9 +35,10 @@ def create_app(test_config=None):
     db.init_app(app)
 
     # apply the blueprints to the app
-    from flaskr import auth, blog
+    from flaskr import auth, blog, vocab
     app.register_blueprint(auth.bp)
     app.register_blueprint(blog.bp)
+    app.register_blueprint(vocab.bp)
 
     # make url_for('index') == url_for('blog.index')
     # in another app, you might define a separate main index here with
@@ -55,3 +47,17 @@ def create_app(test_config=None):
     app.add_url_rule('/', endpoint='index')
 
     return app
+
+# For Streaming
+def stream_template(template_name, **context):
+    app = Flask(__name__, instance_relative_config=True)
+    app.update_template_context(context)
+
+    # loader = FileSystemLoader(["flaskr/templates"])
+    # env = Environment(loader=loader)
+    # t = env.get_template(template_name)
+    t = app.jinja_env.get_template(template_name)
+
+    rv = t.stream(context)
+    # rv.enable_buffering(2)
+    return rv

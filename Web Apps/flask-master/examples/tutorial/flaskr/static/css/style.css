@@ -1,13 +1,13 @@
 html {
-  font-family: sans-serif;
-  background: #eee;
+    font-family: sans-serif;
+    background: #eee;
 /*  padding: 1rem;*/
 }
 
 body {
-  max-width: 1200;
-  margin: 0 auto;
-  background: white;
+    max-width: 1200;
+    margin: 0 auto;
+    background: white;
 }
 
 
@@ -15,10 +15,9 @@ body {
     float: left;
 }
 
-.navbar .right {
+.right {
     float: right;
 }
-
 
 .navbar {
     width: 100%;
@@ -38,7 +37,7 @@ body {
 }
 
 
-.navbar ul li a, .navbar ul li span {
+.navbar ul li a {
     display: block;
     color: white;
     text-align: center;
@@ -46,63 +45,71 @@ body {
     text-decoration: none;
 }
 
-
-.home a.home, .exp a.exp, .analysis a.analysis, .calib a.calib, .scatter a.scatter {
-  background: darkblue;
-  color:white;
+.navbar ul li span {
+    display: block;
+    color: purple;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
 }
-
-.reg a.reg {
-    font-weight: 1000;
-    color: darkred;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: serif;
-  color: #377ba8;
-  margin: 1rem 0;
-}
-
-a {
-  color: #377ba8;
-}
-
 
 .navbar ul li a:hover {
     background-color: chartreuse
 }
 
 
+.home a.home, .exp a.exp, .analysis a.analysis, .calib a.calib, .scatter a.scatter, .vocaba a.vocaba {
+  background: darkblue;
+  color:white;
+}
+
+.reg a.reg, .log a.log {
+    font-weight: 1000;
+    color: darkred;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: serif;
+    color: #377ba8;
+    margin: 1rem 0;
+}
+
+a {
+    color: #377ba8;
+}
+
+
 .content {
-  padding: 0 1rem 1rem;
+    padding: 0 1rem 1rem;
 }
 
 .content > header {
-  border-bottom: 1px solid lightgray;
-  display: flex;
-  align-items: flex-end;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: flex-end;
 }
 
 .content > header h1 {
-  flex: auto;
-  margin: 1rem 0 0.25rem 0;
+    flex: auto;
+    margin: 1rem 0 0.25rem 0;
 }
 
 
 
 .post > header {
-  display: flex;
-  align-items: flex-end;
-  font-size: 0.85em;
+    display: flex;
+    align-items: flex-end;
+    font-size: 0.85em;
 }
 
 .post > header > div:first-of-type {
-  flex: auto;
+    flex: auto;
 }
 
 .post > header h1 {
-  font-size: 1.5em;
-  margin-bottom: 0;
+    font-size: 1.5em;
+    margin-bottom: 0;
 }
 
 .post .about {

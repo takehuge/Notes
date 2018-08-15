@@ -1,7 +1,7 @@
 import json, time, random, itertools
 from flask import (
-    Flask, Blueprint, flash, g, redirect, render_template, request, url_for, Response,
-    stream_with_context
+    Flask, Blueprint, flash, g, redirect, render_template, request, url_for, \
+    Response, stream_with_context, jsonify
 )
 from werkzeug.exceptions import abort
 
@@ -138,7 +138,7 @@ yc = np.cos(3 * x)
 def experimen():
     tojsondata = [0, 10, 5, 2, 20, 30, 64]
     openpath = Path(datafolder) / "data.star"
-    if not openpath.exists():
+    if not Path.exists(openpath):
         txt_loaded = {}
     else:
         with open(openpath) as txt_file: # reading data
@@ -159,30 +159,55 @@ def experimen():
 
 # Streaming
 
+@bp.route('/analysis_process')
+def analysis_process():
+	try:
+		stat = request.args.get('stat', 0, type=str)
+		if stat.lower() == 'pause':
+			return jsonify(result='PAUSED')
+		else:
+			return jsonify(result='HERE WE GO, ' + str(stat))
+	except Exception as e:
+		return str(e)
+
 @bp.route('/analysis', methods=['POST', 'GET'])
 def analysis(): # one of the method called by base/layout
+    # a = input("before post:")
+    state = 'NOBODY'
     datagen, data = {}, {}
     data['x'] = [x for x in x]
     data['y'] = [y for y in yr]
+    # if request.method == 'GET':
+    #     a = input("after post:")
+    if request.form.get('analysis'):
+        def gen(): 
+            i = 1
+            while True:
+                data['y'][1:lx] = data['y'][0:lx - 1]
+                data['y'][0] = random.uniform(-1, 1)
+                yield i, data
+                time.sleep(0.03)
+                i += 1
+            
+        datagen = gen()
 
-    if request.method == 'POST':
-        
-        if request.form.get('analysis'):
-            def gen(): 
-                i = 1
-                while True:
-                    data['y'][1:lx] = data['y'][0:lx - 1]
-                    data['y'][0] = random.uniform(-1, 1)
-                    yield i, data
-                    time.sleep(0.03)
-                    i += 1
+    if request.form.get('res'):
+        def gena():
+            i = 1
+            while True:
+                stat = request.args.get('stat', 0, type=str)
+                for j in range(lx):
+                    data['y'][j] = np.sin(3 * data['x'][j] + (i * np.pi / 100)) * int(stat)
+                yield i, data
+                time.sleep(0.03)
+                i += 1
 
-            datagen = gen()
+        datagen = gena()
 
     # return Response(gen()) #Blank page with just data print
     # return Response(stream_with_context(gen())) #SAME AS ABOVE
     # return Response(stream_template('blog/analysis.html', data=rows)) #BLANK!!! WHY???
-    return Response(stream_with_context(stream_template('blog/analysis.html', data=datagen)))
+    return Response(stream_with_context(stream_template('blog/analysis.html', data=datagen, people=state)))
     # return render_template('blog/analysis.html', data=data) #NORMAL Display, No streaming!
 
 @bp.route('/calibration', methods=['POST', 'GET'])

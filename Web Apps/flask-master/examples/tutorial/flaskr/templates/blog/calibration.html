@@ -21,6 +21,7 @@
                 <option value="2">Cosine</option>
             </select>
             <input type="submit" name="run" value="RUN">
+            
         </form>
         
         <div style="width:75%;">
@@ -30,22 +31,13 @@
             <canvas id="canvas" style="display: block; width: 1000px; height: 500px;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
         </div> 
         
-            {# <!--comment out flask part-->
-            {% for item in datad %}
-                <script>
-                    myPlot("canvas01", {{item[0]}}, {{item[2]}});
-                    myPlot("canvas", {{item[0]}}, {{item[2]}});
-                </script>
-            {% endfor %}
-            #} <!--comment out flask part-->
         
-        
-            {% for item in datad %} 
-                <script>
-                    myPlot("canvas01", {{item[0]}}, {{item[1]}});
-                    myPlot("canvas", {{item[0]}}, {{item[2]}});
-                </script>
-            {% endfor %}
+        {% for item in datad %} 
+            <script>
+                myPlot("canvas01", {{item[0]}}, {{item[1]}});
+                myPlot("canvas", {{item[0]}}, {{item[2]}});
+            </script>
+        {% endfor %}
         
         
 <!-- NOT WORKING IF ITERATED TWICE w/o the FORM SUBMIT!
