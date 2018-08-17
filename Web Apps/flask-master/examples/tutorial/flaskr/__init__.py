@@ -61,3 +61,4 @@ def stream_template(template_name, **context):
     rv = t.stream(context)
     # rv.enable_buffering(2)
     return rv
+

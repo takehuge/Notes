@@ -1,7 +1,7 @@
 import json, time, random, itertools
 from flask import (
     Flask, Blueprint, flash, g, redirect, render_template, request, url_for, \
-    Response, stream_with_context, jsonify
+    Response, stream_with_context, jsonify, session
 )
 from werkzeug.exceptions import abort
 
@@ -158,28 +158,27 @@ def experimen():
     return render_template('blog/experiments.html', dat=txt_loaded, tojsondata=tojsondata)
 
 # Streaming
-
 @bp.route('/analysis_process')
 def analysis_process():
-	try:
-		stat = request.args.get('stat', 0, type=str)
-		if stat.lower() == 'pause':
-			return jsonify(result='PAUSED')
-		else:
-			return jsonify(result='HERE WE GO, ' + str(stat))
-	except Exception as e:
-		return str(e)
+    try:
+        g.stat = request.args.get('stat', 0, type=str)
+        if g.stat.lower() == 'pause':
+            return jsonify(result='PAUSED')
+        else:
+            return jsonify(result='HERE WE GO, ' + str(g.stat))
+    except Exception as e:
+        return str(e)
 
 @bp.route('/analysis', methods=['POST', 'GET'])
 def analysis(): # one of the method called by base/layout
-    # a = input("before post:")
-    state = 'NOBODY'
+    g.stat = request.args.get('stat', 0, type=str) #only works with form of 'GET' method!
+    state = 'Original'
     datagen, data = {}, {}
     data['x'] = [x for x in x]
     data['y'] = [y for y in yr]
     # if request.method == 'GET':
     #     a = input("after post:")
-    if request.form.get('analysis'):
+    if request.form.get('rough'):
         def gen(): 
             i = 1
             while True:
@@ -191,23 +190,26 @@ def analysis(): # one of the method called by base/layout
             
         datagen = gen()
 
-    if request.form.get('res'):
+    if request.form.get('smooth'):
+        try:
+            float(g.stat)
+        except: g.stat = '100'
         def gena():
             i = 1
             while True:
-                stat = request.args.get('stat', 0, type=str)
                 for j in range(lx):
-                    data['y'][j] = np.sin(3 * data['x'][j] + (i * np.pi / 100)) * int(stat)
+                    data['y'][j] = np.sin(3 * data['x'][j] + (i * np.pi / 100)) * float(g.stat)
                 yield i, data
                 time.sleep(0.03)
                 i += 1
 
         datagen = gena()
+        state = g.stat
 
     # return Response(gen()) #Blank page with just data print
     # return Response(stream_with_context(gen())) #SAME AS ABOVE
     # return Response(stream_template('blog/analysis.html', data=rows)) #BLANK!!! WHY???
-    return Response(stream_with_context(stream_template('blog/analysis.html', data=datagen, people=state)))
+    return Response(stream_with_context(stream_template('blog/analysis.html', data=datagen, factor=state)))
     # return render_template('blog/analysis.html', data=data) #NORMAL Display, No streaming!
 
 @bp.route('/calibration', methods=['POST', 'GET'])

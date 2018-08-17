@@ -31,21 +31,24 @@
         <p>If you click on me, I will disappear.</p>
         <p>Click me away!</p>
         <p>Click me too!</p>
+        <p>PHP not working on FLASK!</p>
+        <p>Remember that!</p>
+        
         
         <form method='POST' class='dataform'>
-            <input class="button buttonmeasure" type='submit' name='analysis' value='ANALYSIS'>
-            <input class="button buttonmeasure" type='submit' name='res' value='RESET'>
+            <input class="button buttonmeasure" type='submit' name='rough' value='ROUGHEE'/>
+            <input class="button buttonmeasure" type='submit' name='smooth' value='SMOOTHEE'/>
         </form>
 
-        <form>
-            <input type=text size=5 name=stat>
-            <a href=# id=process_input><button class='btn btn-default'>Submit</button></a>
+        <form method='GET'>
+            <input type="text" name='stat' value="5" />
+            <a href=# id=process_input><button class='btn btn-default'>Submit Factor</button></a>
         </form>
         
         
         <div style="width:75%;">
             <p id=result></p>
-            <h5>{{ people }}</h5>
+            <h5>factor: {{ factor }}</h5>
             <h5 id="counter"></h5>
             <h5 id="countera"></h5>
             <canvas id="canvas01" style="display: block; width: 1000px; height: 500px;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
