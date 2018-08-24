@@ -24,6 +24,45 @@
 </article>
 {% if not loop.last %}
 <hr> {% endif %} {% endfor %} 
+
+<div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        // setup some json to use
+        var cars = [
+            { "make": "Porsche", "model": "911S" },
+            { "make": "Mercedes-Benz", "model": "220SE" },
+            { "make": "Jaguar", "model": "Mark VII" }
+        ];
+
+        var CARS = { "make": "Mercedes-Benz", "model": "220SE" };
+
+        window.onload = function () {
+            // setup the button click
+            document.getElementById("theButton").onclick = function () {
+                postdata()
+            };
+        }
+
+        function postdata() {
+            // ajax the json to the server
+            $.post("/listen", CARS)
+            .done(function(data){
+                alert("Data loaded: " + data);
+            });
+            // stop link reloading the page
+            event.preventDefault();
+        }
+
+        
+    </script>
+    
+    <h3>This will send data using AJAX to PYTHON</h3>
+    <h4>(Not working atm)</h4>
+    <a href="/" id="theButton">CLICK ME</a>
+    
+</div>
+
 </body>
 </html>
 {% endblock %}

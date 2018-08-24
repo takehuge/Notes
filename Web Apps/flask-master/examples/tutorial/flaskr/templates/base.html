@@ -1,4 +1,5 @@
 <!doctype html>
+<meta http-equiv="Content-type" content="application/json; charset=UTF-8" />
 
 <title>{% block title %}{% endblock %} - Flaskr</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -11,7 +12,10 @@
     <li class="left"><a href="{{ url_for('blog.calibration') }}" class="calib">Calibration</a></li>
     <li class="left"><a href="{{ url_for('blog.scatter') }}" class="scatter">Scatter</a></li>
     <li class="left">
-        <a href="{{ url_for('vocab.vocaba') }}" class="vocaba">Vocaba</a>
+        <a href="{{ url_for('vocab.show') }}" class="vocaba">Vocab</a>
+    </li>
+    <li class="left">
+        <a href="{{ url_for('vocab.stepform') }}" class="steform">StepForm</a>
     </li>
 
     {% if g.user %}

@@ -1,4 +1,4 @@
-import json, time, random, itertools
+import json, time, random, itertools, requests
 from flask import (
     Flask, Blueprint, flash, g, redirect, render_template, request, url_for, \
     Response, stream_with_context, jsonify, session
@@ -15,7 +15,7 @@ import numpy as np
 
 bp = Blueprint('blog', __name__)
 datafolder = "/Users/apple/Dropbox/My Programming/Python/Notes/Web Apps/flask-master/examples/tutorial/instance"
-
+cache = {}
 
 @bp.route('/')
 def index():
@@ -26,6 +26,8 @@ def index():
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
+    session['data'] = {'State' : "Home Visited"}
+
     return render_template('blog/index.html', posts=posts)
 
 
@@ -134,9 +136,28 @@ yr2 = np.random.rand(lx) - np.random.rand(lx)
 ys = np.sin(3*x)
 yc = np.cos(3 * x)
 
+def probe():
+    print("COMING from BACKEND!!!")
+    return
+
+
+@bp.route('/listen', methods=['POST'])
+def worker():
+    # read json + reply
+    # data = request.get_json(force=True)
+    # data = request.form['cars']
+    data = requests.get('http://127.0.0.1:5777/').json()
+    result = ''
+
+    for item in data:
+        result += str(item['make']) + '\n'
+
+    return result
+
 @bp.route('/experimentss', methods=['POST', 'GET']) #how it appears in the address bar
 def experimen():
     tojsondata = [0, 10, 5, 2, 20, 30, 64]
+    session['data'] = {'from experiment' : tojsondata}
     openpath = Path(datafolder) / "data.star"
     if not Path.exists(openpath):
         txt_loaded = {}
@@ -158,27 +179,34 @@ def experimen():
     return render_template('blog/experiments.html', dat=txt_loaded, tojsondata=tojsondata)
 
 # Streaming
-@bp.route('/analysis_process')
+@bp.route('/analysis_process', methods=['POST', 'GET'])
 def analysis_process():
-    try:
-        g.stat = request.args.get('stat', 0, type=str)
-        if g.stat.lower() == 'pause':
-            return jsonify(result='PAUSED')
-        else:
-            return jsonify(result='HERE WE GO, ' + str(g.stat))
-    except Exception as e:
-        return str(e)
+    # session['data'] = 'Analysis Processing 100'
+    # try:
+    #     g.stat = 37 #request.args.get('stat', 13, type=float) #detecting input
+    #     if g.stat > 100:
+    #         cache.update(result='TOO BIG')
+    #         return jsonify(cache)
+    #     else:
+    #         cache.update(result='FACTOR: ' + str(g.stat))
+    #         return jsonify(cache)
+    # except Exception as e:
+    #     return str(e)
+    cache.update(lottery='1937')
+    return jsonify(lottery='1937')
 
 @bp.route('/analysis', methods=['POST', 'GET'])
 def analysis(): # one of the method called by base/layout
-    g.stat = request.args.get('stat', 0, type=str) #only works with form of 'GET' method!
+    g.stat = request.args.get('stat', 0, type=float) #only works with form of 'GET' method!
     state = 'Original'
+    idr, ids = 0, 0
     datagen, data = {}, {}
     data['x'] = [x for x in x]
     data['y'] = [y for y in yr]
     # if request.method == 'GET':
     #     a = input("after post:")
     if request.form.get('rough'):
+        idr = id('David')
         def gen(): 
             i = 1
             while True:
@@ -191,6 +219,7 @@ def analysis(): # one of the method called by base/layout
         datagen = gen()
 
     if request.form.get('smooth'):
+        ids = id('David')
         try:
             float(g.stat)
         except: g.stat = '100'
@@ -202,18 +231,26 @@ def analysis(): # one of the method called by base/layout
                 yield i, data
                 time.sleep(0.03)
                 i += 1
-
+        
         datagen = gena()
-        state = g.stat
+    
+    jsonify(dict(name='David'))
+    state = g.stat
+    # jdata = request.get_json()
+    jdata = requests.get('http://127.0.0.1:5777/analysis_process').json()
+    sdata = session.get('data')
 
     # return Response(gen()) #Blank page with just data print
     # return Response(stream_with_context(gen())) #SAME AS ABOVE
     # return Response(stream_template('blog/analysis.html', data=rows)) #BLANK!!! WHY???
-    return Response(stream_with_context(stream_template('blog/analysis.html', data=datagen, factor=state)))
+    return Response(stream_with_context(stream_template('blog/analysis.html', \
+    data=datagen, factor=state, jdata=jdata, sdata=sdata, idr=idr, ids=ids, \
+    probe=probe)))
     # return render_template('blog/analysis.html', data=data) #NORMAL Display, No streaming!
 
 @bp.route('/calibration', methods=['POST', 'GET'])
 def calibration():  # one of the method called by base/layout
+    session['data'] = dict(calib=[0,1,2,3,4,5])
     datad, data, chartop, chartopt = {}, {}, "", ""
     data['x'] = [x for x in x]
     data['yS'] = [y for y in ys]
@@ -251,6 +288,7 @@ def calibration():  # one of the method called by base/layout
 
 @bp.route('/scatter', methods=['POST', 'GET'])
 def scatter():
+    session['data'] = "All Scattered"
     datad = []
     def gen():
         # datad = [] # only if += is used

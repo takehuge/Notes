@@ -9,21 +9,23 @@
             $(document).ready(function(){
                 $("p").click(function(){
                     $(this).hide();
+                    {{ probe() }};
                 });
             });
         </script>
-        <script type=text/javascript>
-            $(function() {
-                $('a#process_input').bind('click', function() {
-                $.getJSON('/analysis_process', {
-                    stat: $('input[name="stat"]').val(),
-                }, function(data) {
-                    $("#result").text(data.result);
-                });
-                return false;
+        <script>
+            $(function () {
+                $('a#process').bind('click', function () {
+                    $.getJSON('/analysis_process', {
+                        //stat: $('input[name="stat"]').val() //detecting input
+                    }, function (dat) {
+                        $('#res').text(dat.lottery);
+                    });
+                    return false;
                 });
             });
         </script>
+        
     </head>
  
     <body class="analysis">
@@ -42,13 +44,18 @@
 
         <form method='GET'>
             <input type="text" name='stat' value="5" />
-            <a href=# id=process_input><button class='btn btn-default'>Submit Factor</button></a>
+            <a href=# id='process'><button>Submit Factor</button></a>
         </form>
-        
+        <p id='res'>answer?</p>
         
         <div style="width:75%;">
-            <p id=result></p>
+
             <h5>factor: {{ factor }}</h5>
+            <h5>jdata: {{ jdata }}</h5>
+            <h5>sdata: {{ sdata }}</h5>
+            <h5>idr: {{ idr }}</h5>
+            <h5>ids: {{ ids }}</h5>
+
             <h5 id="counter"></h5>
             <h5 id="countera"></h5>
             <canvas id="canvas01" style="display: block; width: 1000px; height: 500px;" width="1000" height="500" class="chartjs-render-monitor"></canvas>

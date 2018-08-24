@@ -2,6 +2,7 @@ import json
 import time
 import random
 import itertools
+import requests
 from flask import (
     Flask, Blueprint, flash, g, redirect, render_template, request, url_for, Response,
     stream_with_context
@@ -23,15 +24,21 @@ bp = Blueprint('vocab', __name__)
 datafolder = "/Users/apple/Dropbox/My Programming/Python/Notes/Web Apps/flask-master/examples/tutorial/instance"
 
 
-@bp.route('/vocaba', methods=['POST', 'GET'])
-def vocaba():
+@bp.route('/vocab')
+def show():
 
-    if request.headers.get('accept') == 'text/event-stream':
-        def events():
-            for i, c in enumerate(itertools.cycle('\|/-')):
-                yield "data: %s %d\n\n" % (c, i)
-                time.sleep(.1)  # an artificial delay
-                
-        return Response(events(), content_type='text/event-stream')
+    return render_template("vocab/vocaba.html")
 
-    return redirect(url_for('vocab.vocaba'))
+
+@bp.route('/vocab/stepform')
+def stepform():
+    x = 0
+    y = 0
+    def plus():
+        print("PLUS INITIATED!")
+    def minus():
+        print("MINUS INITIATED!")
+    return render_template("vocab/stepform.html", x=x, y=y, plus=plus, minus=minus)
+
+
+
