@@ -1,15 +1,23 @@
 html {
     font-family: sans-serif;
-    background: #eee;
-/*  padding: 1rem;*/
 }
 
-body {
+html, body {
     max-width: 1200;
-    margin: 0 auto;
+    margin: -16px;
+    padding: 16px;
     background: white;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: serif;
+    color: #377ba8;
+    /* margin: 1rem 0; */
+}
+
+a {
+    color: #377ba8;
+}
 
 .left {
     float: left;
@@ -28,12 +36,11 @@ body {
 
 .navbar ul {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
     background-color: #333;
-    top: 0;
     width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -41,16 +48,8 @@ body {
     display: block;
     color: white;
     text-align: center;
-    padding: 16px;
     text-decoration: none;
-}
-
-.navbar ul li span {
-    display: block;
-    color: purple;
-    text-align: center;
     padding: 16px;
-    text-decoration: none;
 }
 
 .navbar ul li a:hover {
@@ -69,19 +68,68 @@ body {
 }
 
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: serif;
-    color: #377ba8;
-    margin: 1rem 0;
+.aleft {
+    float: left;
+    width: 30%;
+    background: blue;
+    height: 100vh;
+    overflow-y: scroll;
 }
 
-a {
-    color: #377ba8;
+.aright {
+    width: 70%;
+    float: left;
+    background: white;
+    height: 100vh;
+    overflow-y: scroll;
 }
 
+/* For Vocaba */
 
+.vocontent {
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+.word {
+    width: 20%;
+    float: left;
+    height: 100vh;
+    background-color: cornflowerblue;
+    display: block;
+    padding: 0 1.333%; /* X2 */
+    overflow-y: scroll;
+}
+
+.meaning {
+    width: 52%;
+    float: left; /* this will follow the previous float */
+    height: 100vh;
+    background-color: wheat;
+    display: block;
+    padding: 0 1.333%;
+    overflow-y: scroll;
+}
+
+.note {
+    width: 20%;
+    float: right; /* this will follow the previous float */
+    height: 100vh;
+    background-color: blueviolet;
+    display: block;
+    padding: 0 1.333%;
+    overflow-y: scroll;
+}
+
+.note h3 {
+    color: white;
+}
+
+/* Main content extended from base */
 .content {
-    padding: 0 1rem 1rem;
+    padding: 0;
 }
 
 .content > header {

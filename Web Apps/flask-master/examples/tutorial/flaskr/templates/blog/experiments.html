@@ -1,15 +1,17 @@
-{% extends 'base.html' %} {% block content %}
-<html>
+{% extends 'base.html' %}
 
 <head>
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>-->
+    <title>{% block title %}Exp{% endblock %}</title>
+    {% block head %}
     <script type="text/javascript" src="{{ url_for('static', filename='js/experiments.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
+    {% endblock %}
 </head>
 
-    
+{% block content %}
 <body onload="myInit({{dat['x']}}, {{dat['y1']}}, {{dat['y2']}}, {{tojsondata}})" class="exp">
-
+<div>
+    <div class="aleft">
     <form>
         <select id="mySelect" onchange="myFruits(this.id, this.value)">
             <option value="1">Apple</option>
@@ -19,37 +21,46 @@
             <option value="5">Avocado</option>
         </select>
     </form>
+
     <p id="fruit">A Paragraph.</p>
-    
     <p id="demo">A Paragraph.</p>
     <button type="button" onclick="myFunction()">Try it</button>
 
-    <form method='POST' class='dataform'>
-        <input class="button buttonmeasure" type='submit' name='measure' value='MEASURE'>
-    </form>
-    
-    <!-- <h3>{{ dat }}</h3> -->
-    <h5 id="output"></h5>
-    
-    <div style="width:75%;">
-        <canvas id="canvas" style="display: block; width: 1000px; height: 500px;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
-    </div>
+    {% for i in range(371) %}
+    <h2> {{i}} WONDERFUL THINGS </h2>
+    {% endfor %}
 
-    <!-- add lines with br -->
-<!--    <br> <br>-->
-    
-    <h5 id="array01"></h5>
-    <h5 id="array02"></h5>
-    <script>
-        document.getElementById("array01").innerHTML = 'w/o tojson Array: ' + {{tojsondata}};
-        document.getElementById("array02").innerHTML = 'w/ tojson Array: ' + {{tojsondata | tojson}};
-    </script>
-    
-    <div style="width:75%">
-        <canvas id="canvas01" style="display: block; width: 1000px; height: 500px;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
     </div>
+    <div class="aright">
+        <form method='POST' class='dataform'>
+            <input class="button buttonmeasure" type='submit' name='measure' value='MEASURE'>
+        </form>
+        
+        <!-- <h3>{{ dat }}</h3> -->
+        <h5 id="output"></h5>
+        
+        <div style="width:75%;">
+            <canvas id="canvas" style="display: block; width: 1000px; height: 500px;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
+        </div>
 
+        <!-- add lines with br -->
+    <!--    <br> <br>-->
+        
+        <h5 id="array01"></h5>
+        <h5 id="array02"></h5>
+        <script>
+            document.getElementById("array01").innerHTML = 'w/o tojson Array: ' + {{tojsondata}};
+            document.getElementById("array02").innerHTML = 'w/ tojson Array: ' + {{tojsondata | tojson}};
+        </script>
+        
+        <div style="width:100%">
+            <canvas id="canvas01" style="display: block; width: 1000px; height: 500px;" width="1000" height="500" class="chartjs-render-monitor"></canvas>
+        </div>
+        {% for i in range(371) %}
+        <h2> GREAT: {{i}} </h2>
+        {% endfor %}
+    </div>
+</div>
 </body>
 
-</html>
 {% endblock %}

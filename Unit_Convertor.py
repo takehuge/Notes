@@ -1,8 +1,6 @@
 import math
 import numpy as np
 from scipy import constants
-import matplotlib.pyplot as plt
-from matplotlib import rc
 
 L = 100*constants.micro #EM Wavelength
 F = constants.lambda2nu(L) #converted to frequency
@@ -17,8 +15,13 @@ F_array = constants.lambda2nu(L_array*constants.micro)
 E_array = F_array*FeV[0]
 # print(L_array)
 
-plt.plot(L_array,E_array)
-plt.title('Energy of light for each wavelength', fontsize=17, fontname='fantasy')
-plt.xlabel(r'$\lambda_{vac} (\mu{m})$', fontsize=17)
-plt.ylabel(r'Energy in eV', fontsize=17)
-plt.show()
+# import matplotlib.pyplot as plt
+# plt.plot(L_array,E_array)
+# plt.title('Energy of light for each wavelength', fontsize=17, fontname='fantasy')
+# plt.xlabel(r'$\lambda_{vac} (\mu{m})$', fontsize=17)
+# plt.ylabel(r'Energy in eV', fontsize=17)
+# plt.show()
+
+from numericalunits import GHz, MHz
+f = 9 * GHz
+print(f / MHz)
