@@ -26,8 +26,9 @@ datafolder = "/Users/apple/Dropbox/My Programming/Python/Notes/Web Apps/flask-ma
 
 @bp.route('/vocab')
 def show():
-
-    return render_template("vocab/vocaba.html")
+    msg = ['Knowledge is power']
+    msg.append('Imagination is everything')
+    return render_template("vocab/vocaba.html", msg=msg)
 
 
 @bp.route('/vocab/stepform')
