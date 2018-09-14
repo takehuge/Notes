@@ -17,9 +17,9 @@
             $(function () {
                 $('a#process').bind('click', function () {
                     $.getJSON('/analysis_process', {
-                        //stat: $('input[name="stat"]').val() //detecting input
+                        star: $('input[name="stat"]').val() //detecting input
                     }, function (dat) {
-                        $('#res').text(dat.lottery);
+                        $('#res').text(dat.result);
                     });
                     return false;
                 });

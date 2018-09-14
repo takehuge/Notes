@@ -1,0 +1,78 @@
+.epilog {
+    background-color: black;
+    width: 100%;
+    overflow: hidden;
+}
+
+.epilog h5 {
+    color: #ccc;
+}
+
+.word {
+    float: left;
+    background-color: #f1f1f1;
+    width: 15%;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.word button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 12px 8px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.word button:hover {
+    background-color: #ddd;
+}
+
+.word button.active {
+    background-color: #ccc;
+}
+
+.meaning {
+    background-color: silver;
+    float: left;
+    padding: 0px 3%;
+    width: 42%;
+    height: 100vh;
+    display: none;
+}
+
+.idiom {
+    width: 37%;
+    float: right; /* this will follow the previous float */
+    height: 100vh;
+    background-color: whitesmoke;
+    overflow-y: scroll;
+}
+
+.idiom button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 12px 8px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.idiom button:hover {
+    background-color: #ddd;
+}
+
+.idiom button.active {
+    background-color: #ccc;
+}

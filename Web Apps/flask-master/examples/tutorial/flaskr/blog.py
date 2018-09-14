@@ -181,19 +181,19 @@ def experimen():
 # Streaming
 @bp.route('/analysis_process', methods=['POST', 'GET'])
 def analysis_process():
-    # session['data'] = 'Analysis Processing 100'
-    # try:
-    #     g.stat = 37 #request.args.get('stat', 13, type=float) #detecting input
-    #     if g.stat > 100:
-    #         cache.update(result='TOO BIG')
-    #         return jsonify(cache)
-    #     else:
-    #         cache.update(result='FACTOR: ' + str(g.stat))
-    #         return jsonify(cache)
-    # except Exception as e:
-    #     return str(e)
-    cache.update(lottery='1937')
-    return jsonify(lottery='1937')
+    session['data'] = 'Analysis Processing 100'
+    try:
+        g.stat = request.args.get('star', 13, type=float) #detecting input
+        if g.stat > 100:
+            cache.update(result='TOO BIG')
+            return jsonify(cache)
+        else:
+            cache.update(result='FACTOR: ' + str(g.stat))
+            return jsonify(cache)
+    except Exception as e:
+        return str(e)
+    # cache.update(lottery='1937')
+    return jsonify(cache)
 
 @bp.route('/analysis', methods=['POST', 'GET'])
 def analysis(): # one of the method called by base/layout

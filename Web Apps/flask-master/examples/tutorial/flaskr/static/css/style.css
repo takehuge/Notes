@@ -85,49 +85,6 @@ a {
     overflow-y: scroll;
 }
 
-/* For Vocaba */
-
-.vocontent {
-    width: 100%;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-}
-
-.word {
-    width: 20%;
-    float: left;
-    height: 100vh;
-    background-color: cornflowerblue;
-    display: block;
-    padding: 0 1.333%; /* X2 */
-    overflow-y: scroll;
-}
-
-.meaning {
-    width: 52%;
-    float: left; /* this will follow the previous float */
-    height: 100vh;
-    background-color: wheat;
-    display: block;
-    padding: 0 1.333%;
-    overflow-y: scroll;
-}
-
-.note {
-    width: 20%;
-    float: right; /* this will follow the previous float */
-    height: 100vh;
-    background-color: blueviolet;
-    display: block;
-    padding: 0 1.333%;
-    overflow-y: scroll;
-}
-
-.note h3 {
-    color: white;
-}
-
 /* Main content extended from base */
 .content {
     padding: 0;

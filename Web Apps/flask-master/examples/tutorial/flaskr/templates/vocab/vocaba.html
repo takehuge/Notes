@@ -1,42 +1,46 @@
 {% extends 'base.html' %} 
+{% block title %}Voc{% endblock %}
 
-<head>
-    <title>{% block title %}Voc{% endblock %}</title>
-     {% block head %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     {% endblock %}
-</head>
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/vocab.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/vocab.js') }}"></script>
+{% endblock %}
 
 {% block content %}
 
-
-
 <body class="vocaba">
+    <div>
+        <div class="epilog">{% for x in msg %}<h5>{{x}}</h5>{% endfor %}</div>
 
-    <div class="vocontent">
-        {% for x in msg %}
-        <h4>{{x}}</h4>
-        {% endfor %}
         <div class="word">
-            <h3>Good Left
-             {% for i in range(137) %}
-            {{i}} WONDERFUL THINGS
-            {% endfor %}</h3>
+            <button class="tabs" onclick="openDict(event, 'London')">London</button>
+            <button class="tabs" onclick="openDict(event, 'Paris')">Paris</button>
+            <button class="tabs" onclick="openDict(event, 'Tokyo')">Tokyo</button>
         </div>
-        <div class="meaning">
-            <h5>Great Middle
-             {% for i in range(371) %}
-            {{i}} WONDERFUL THINGS
-            {% endfor %}</h5>
+        
+        <div id="London" class="meaning">
+            <h3>London</h3>
+            <p>London is the capital city of England.</p>
         </div>
-        <div class="note">
-            <h3>Good Right
-             {% for i in range(137) %}
-            {{i}} WONDERFUL THINGS
-            {% endfor %}</h3>
+        
+        <div id="Paris" class="meaning">
+            <h3>Paris</h3>
+            <p>Paris is the capital of France.</p>
         </div>
-    </div>
+        
+        <div id="Tokyo" class="meaning">
+            <h3>Tokyo</h3>
+            <p>Tokyo is the capital of Japan.</p>
+        </div>
+        
+        <div class="idiom">
+            <button class="tabs" onclick="openIdio(event, 'London')">London</button>
+            <button class="tabs" onclick="openIdio(event, 'Paris')">Paris</button>
+            <button class="tabs" onclick="openIdio(event, 'Tokyo')">Tokyo</button>
+        </div>
 
+    </div>
 </body>
 
 {% endblock %}
