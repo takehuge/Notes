@@ -36,7 +36,7 @@ if a != z:
     print('not fair')
 
 if z == x:
-    print('twin brother')
+    print('twin sister')
 else:
     print('not same!')
 
