@@ -12,3 +12,19 @@ print("2.1 Sorted (ascending values): %s" %XS)
 import operator
 XS = sorted(xs.items(), key=operator.itemgetter(0))
 print("2.2 Sorted (ascending keys): %s" %XS)
+
+# 3. Different ways to test multiple
+# flags at once in Python
+x, y, z = 0, 1, 0
+print("3. Different ways to test multiple flags at once in Python:")
+if x == 1 or y == 1 or z == 1:
+    print('passed')
+if 1 in (x, y, z):
+    print('passed')
+# These only test for truthiness:
+if x or y or z:
+    print('passed')
+if any((x, y, z)):
+    print('passed')
+
+    
