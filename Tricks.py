@@ -54,3 +54,14 @@ def greeting(userid):
 print(greeting(382)) #"Hi Alice!"
 print(greeting(333333)) # default: "Hi there!"
 
+# 6. Why Python Is Great: Function argument unpacking
+print("\n6. Why Python Is Great: Function argument unpacking:")
+def myfunc(x, y, z):
+    print(x, y, z)
+tuple_vec = (1, 0, 1)
+dict_vec = {'x': 1, 'y': 0, 'z': 1}
+print("unpacking tuple_vec:")
+myfunc(*tuple_vec)
+print("unpacking dict_vec:")
+myfunc(**dict_vec)
+
