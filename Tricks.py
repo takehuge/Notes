@@ -65,13 +65,20 @@ myfunc(*tuple_vec)
 print("unpacking dict_vec:")
 myfunc(**dict_vec)
 
-# The "timeit" module lets you measure the execution time of small bits of Python code
-print('The "timeit" module lets you measure the execution time of small bits of Python code:')
+# 7. The "timeit" module lets you measure the execution time of small bits of Python code
+print('\n7. The "timeit" module lets you measure the execution time of small bits of Python code:')
 import timeit
-T1 = timeit.timeit('"-".join(str(n) for n in range(100))', number=10000)
-print("Time taken to join 100 dash using join-string: %s" %T1)
 T2 = timeit.timeit('"-".join([str(n) for n in range(100)])', number=10000)
 print("Time taken to join 100 dash using join-list-string: %s" %T2)
 T3 = timeit.timeit('"-".join(map(str, range(100)))', number=10000)
 print("Time taken to join 100 dash using join-map-string: %s" %T3)
+T1 = timeit.timeit('"-".join(str(n) for n in range(100))', number=10000)
+print("Time taken to join 100 dash using join-string: %s" %T1)
+
+# 8. In-place value swapping
+print("\n8. In-place value swapping:")
+a, b = 3, 5
+print("originally, a=%s, b=%s" %(a, b))
+a, b = b, a
+print("after swapping, a=%s, b=%s" %(a, b))
 
