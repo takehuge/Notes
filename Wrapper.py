@@ -1,6 +1,8 @@
 #DECORATOR & WRAPPER
-import time
+import time, wrapt
+
 from functools import wraps
+from numpy import sin, cos, pi, sqrt, arctan2, linspace
 
 # CLASS DECORATOR
 class decorator_class(object):
@@ -159,5 +161,24 @@ def display_info(name, age):
 def two():
     return (1+1)
 
+## Use Wrapt to preserve signature thus provide help tooltip:
+# Function Decorator with Arguments
+@wrapt.decorator
+def attributes(wrapped, instance, a, b):
+    x, y, Z = wrapped(*a, **b)
+    Ans = [i * y / x for i in Z]
+    print("I'm in the wrapper producing weird stuff LOL: %s" %Ans)
+    return Ans
 
+@attributes
+def mid_processor(x, y):
+    '''
+    This tooltips/guideline comes in handy in application development
+    One can just view it by hovering over the method, typing it in the process
+    '''
+    Z = linspace(x, y, 25)
+    print("Z: %s" %Z)
+    return x, y, Z
 
+ans = mid_processor(2.5, 7.9)
+print("Spitted out by wrapped mid_processor: %s" %ans)
