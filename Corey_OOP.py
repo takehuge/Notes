@@ -3,7 +3,7 @@ class Employee:
     num_of_emps = 0
     raise_amt = 1.04
 
-    def __init__(self, first, last, pay):
+    def __init__(self, first, last, pay=88888888):
         self.first = first
         self.last = last
         self.pay = pay
@@ -18,6 +18,15 @@ class Employee:
     @property
     def fullname(self):
         return '{} {}'.format(self.first, self.last)
+
+    def bigname(self):
+        print("my pay is as high as $%s" %(self.pay * 16))
+        return self.fullname.upper()
+
+    @property
+    def smallname(self):
+        print("my tax is as high as $%s" %(self.pay * 0.16))
+        return self.fullname.lower()
 
     @fullname.setter
     def fullname(self, name):
@@ -48,6 +57,7 @@ class Employee:
 
     @classmethod
     def set_raise_amt(cls, amount):
+        # cls.tax = cls.pay * 0.07
         cls.raise_amt = amount
 
     @classmethod
@@ -124,11 +134,19 @@ print(emp_1.fullname)
 emp_1.fullname = 'David Starbridge'
 print(emp_1.fullname)
 print(emp_1.first)
+print(emp_1.last)
 print(emp_1.email)
+print(emp_1.pay)
+bgname = emp_1.bigname()
+print("BIG NAME: %s" %bgname)
+sname = emp_1.smallname
+print("small name: %s" %sname)
 
 emp_2.fullname = 'Monica Lewinski'
 del emp_2.fullname
 print(emp_2.fullname)
+print(emp_2.email)
+print(emp_2.pay)
 
 # print(1+2)
 print(int.__add__(1, 2))

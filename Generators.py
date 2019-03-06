@@ -38,7 +38,7 @@ def fibonacci(n):
 f = fibonacci(7)
 for x in f:
     print(x)
-print
+# print
 
 
 def permutations(items):
